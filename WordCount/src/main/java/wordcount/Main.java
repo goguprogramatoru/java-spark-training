@@ -15,6 +15,7 @@ import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
+import org.apache.spark.sql.SparkSession;
 import scala.Tuple2;
 
 /**
@@ -57,7 +58,7 @@ public class Main {
 	private void sparkWordCount() {
 		// create a spark config object
 		SparkConf conf = new SparkConf().setAppName("Spark Word Count").setMaster("local[*]");
-
+		
 		// create a spark context with the previously defined config
 		JavaSparkContext sc = new JavaSparkContext(conf);
 
