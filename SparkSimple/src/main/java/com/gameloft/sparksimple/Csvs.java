@@ -44,7 +44,9 @@ public class Csvs {
 		// create a rdd from the given csv file
 		// the rdd will have String elements that are the individual lines
 		// further processing is necessary to split the ines into pieces and map the model
-		JavaRDD<String> rdd = spark.getSparkSession().read().textFile(filePath).javaRDD();
+		JavaRDD<String> rdd = spark.getSc().textFile(filePath);
+		// or you can use the SparkSession instead:
+		// JavaRDD<String> rdd = spark.getSparkSession().read().textFile(filePath).javaRDD();
 		
 		// use lambdas to transform each line element
 		JavaRDD<SaleModel> saleModelRdd = rdd
