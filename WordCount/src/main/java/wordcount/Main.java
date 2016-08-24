@@ -8,15 +8,16 @@ import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
-import org.apache.spark.sql.SparkSession;
 import scala.Tuple2;
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
 
 /**
  *
@@ -25,9 +26,20 @@ import scala.Tuple2;
 public class Main {
 
 	private static final String STORY_URL = "http://textfiles.com/stories/3lpigs.txt";
-	private final String STORY_FILE = "/opt/data/junk/sparkTraining/story.txt";
+	private static final String STORY_FILE_PATH = "/home/gameloft/Documents/sparkTraining/";
+	private static final String STORY_FILE = STORY_FILE_PATH + "story.txt";
 
 	public static void main(String[] args) {
+		// reduce spark logging (too much noise)
+		Logger.getLogger("org").setLevel(Level.WARN);
+		Logger.getLogger("akka").setLevel(Level.WARN);
+		
+		// make sure paths exist; create if not
+		try {
+			FileUtils.forceMkdir(FileUtils.getFile(STORY_FILE_PATH));
+		} catch (IOException ex) {
+			System.err.println(ex.getMessage());
+		}
 
 		// because methods are not static...
 		Main p = new Main();
@@ -47,11 +59,11 @@ public class Main {
 			pw.write(IOUtils.toString(input));
 			pw.close();
 		} catch (FileNotFoundException ex) {
-			Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+			System.err.println(ex.getMessage());
 		} catch (MalformedURLException ex) {
-			Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+			System.err.println(ex.getMessage());
 		} catch (IOException ex) {
-			Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+			System.err.println(ex.getMessage());
 		}
 	}
 

@@ -14,7 +14,7 @@ import org.apache.log4j.Level;
  */
 public class Main {
 	
-	private static final String CSV_FOLDER = "/home/gameloft/Documents/java/csv/";
+	private static final String CSV_FOLDER = "/home/gameloft/Documents/sparkTraining/csv/";
 	private static final String CSV_FILE = "sales.csv";
 	private static final int NB_ROWS = 1 * 1000 * 1000;
 	private static final String TABLE_NAME = "data";
